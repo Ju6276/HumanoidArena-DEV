@@ -1,9 +1,10 @@
-# GR00T N1.7 / Psi0 on HumanoidArena: complete SONIC40 workflow
+# GR00T N1.7 / Psi0 / VLA-JEPA on HumanoidArena: complete SONIC40 workflow
 
-This guide describes the exact three-repository setup used to train and evaluate
-GR00T N1.7 and Psi0 on the seven HumanoidArena SONIC tasks. HumanoidArena owns
-the simulator and evaluation protocol; each model repository owns its model,
-training environment, checkpoint, and inference server.
+This guide describes the exact four-repository setup used to train and evaluate
+GR00T N1.7, Psi0, and the official VLA-JEPA baseline on the seven HumanoidArena
+SONIC tasks. HumanoidArena owns the simulator and evaluation protocol; each
+model repository owns its model, training environment, checkpoint, and
+inference server.
 
 The comparison in this guide uses one policy per task, 100,000 optimizer steps,
 action horizon 30, global batch size 8, W&B online, and 60 base-test evaluation
@@ -11,13 +12,14 @@ episodes per checkpoint (three seeds and 20 repeats per seed).
 
 ## 1. Repositories and responsibilities
 
-Keep the three repositories next to each other:
+Keep the four repositories next to each other:
 
 ```text
 /path/to/benchmark/
 ├── HumanoidArena/       simulator, SONIC controller integration, evaluation
 ├── Isaac-GR00T/         GR00T N1.7 data adapter, training, inference bridge
 ├── Psi0/                Psi0 training and HumanoidArena inference server
+├── VLA-JEPA/            official VLA-JEPA training and inference server
 ├── data_v2/             shared converted LeRobot v2.1 datasets
 └── releases/            downloaded archives, models, and simulator assets
 ```
@@ -29,6 +31,7 @@ Use the matching development branches:
 | `Ju6276/HumanoidArena-DEV` | `feat/humanoidarena-vla-adapters` | Evaluation and SONIC `semantic_v3` execution |
 | `Ju6276/Isaac-GR00T-DEV` | `feat/humanoidarena-sonic40` | GR00T N1.7 training and serving |
 | `Ju6276/Psi0-DEV` | `feat/humanoidarena-sonic40` | Psi0 training and serving |
+| `Ju6276/VLA-JEPA-DEV` | `feat/humanoidarena-sonic40` | Official VLA-JEPA training and serving |
 
 ```bash
 export BENCH_ROOT=/path/to/benchmark
@@ -41,21 +44,26 @@ git clone --recurse-submodules --branch feat/humanoidarena-sonic40 \
   https://github.com/Ju6276/Isaac-GR00T-DEV.git Isaac-GR00T
 git clone --branch feat/humanoidarena-sonic40 \
   https://github.com/Ju6276/Psi0-DEV.git Psi0
+git clone --branch feat/humanoidarena-sonic40 \
+  https://github.com/Ju6276/VLA-JEPA-DEV.git VLA-JEPA
 ```
 
-For reproducible runs, record the three commit hashes:
+For reproducible runs, record the four commit hashes:
 
 ```bash
 git -C "${BENCH_ROOT}/HumanoidArena" rev-parse HEAD
 git -C "${BENCH_ROOT}/Isaac-GR00T" rev-parse HEAD
 git -C "${BENCH_ROOT}/Psi0" rev-parse HEAD
+git -C "${BENCH_ROOT}/VLA-JEPA" rev-parse HEAD
 ```
 
-The tested adapter commits are `4ad6888`, `76611bd`, and `d3f041c`, respectively.
+The VLA-JEPA SONIC40 adapter starts directly from `ginwind/VLA-JEPA` main at
+`ec8c70f`; its adapter commit is `72a6ccb`. It deliberately does not inherit the
+separate V-JEPA 2.1, latent78, music-JEPA, or one-stage experimental branches.
 
 ## 2. Frozen benchmark interface
 
-Both models receive and produce the same values. This is the interface that
+All models receive and produce the same values. This is the interface that
 HumanoidArena expects during evaluation.
 
 ### Input
@@ -97,6 +105,24 @@ export SONIC_VLA_ACTION_FORMAT=semantic_v3
 ```
 
 Do not use `latent64` for this comparison.
+
+### Internal normalization versus the frozen interface
+
+The raw dataset fields and simulator-facing values are identical, but each
+model retains its own training-time normalization:
+
+| Model | Continuous action `[0:38]` | Binary hands `[38:40]` | Simulator-facing hands |
+| --- | --- | --- | --- |
+| GR00T N1.7 | q01/q99 to `[-1,1]` | q01/q99 (`0/1` becomes `-1/+1`) | denormalized to `0/1` |
+| Psi0 | min/max to `[-1,1]` | min/max (`0/1` becomes `-1/+1`) | denormalized to `0/1` |
+| VLA-JEPA | min/max to `[-1,1]` | binary identity in `[0,1]` | thresholded to `0/1` |
+| official pi0.5 | q01/q99 to `[-1,1]` | q01/q99 (`0/1` becomes `-1/+1`) | denormalized to `0/1` |
+
+This is an internal algorithm/preprocessor difference, not a benchmark
+interface difference. Every server must return the same raw `[30,40]`
+`semantic_v3` action chunk, and HumanoidArena thresholds dimensions 38 and 39
+as the left/right hand commands. Do not feed normalized model-space values
+directly to the simulator.
 
 ### Tasks and prompts
 
@@ -421,7 +447,7 @@ source .venv-psi/bin/activate
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export GLOBAL_BATCH_SIZE=8
 export GRADIENT_ACCUMULATION_STEPS=1
-export DATA_ROOT="${DATA_ROOT}"
+export DATA_ROOT="${BENCH_ROOT}/data_v2"
 export WANDB_MODE=online
 export WANDB_ENTITY=your-wandb-entity
 
@@ -487,7 +513,98 @@ bash scripts/train/psi0/run-humanoidarena-opendoor-train-eval.sh
 Do not run this wrapper after OpenDoor has already been trained unless another
 100,000-step run is intended.
 
-## 7. Evaluate the other six tasks
+## 7. Train VLA-JEPA
+
+### 7.1 Official baseline and environment
+
+This branch is based on the official `ginwind/VLA-JEPA` main and uses its
+original V-JEPA 2 encoder, `facebook/vjepa2-vitl-fpc64-256`. It is not the
+separate V-JEPA 2.1 experiment.
+
+```bash
+cd "${BENCH_ROOT}/VLA-JEPA"
+conda create -n VLA_JEPA python=3.10 -y
+conda activate VLA_JEPA
+pip install -r requirements.txt
+pip install flash-attn --no-build-isolation
+pip install -e .
+```
+
+The base checkpoints may be referenced by Hugging Face ID or fixed local
+snapshots:
+
+```text
+Qwen/Qwen3-VL-2B-Instruct
+facebook/vjepa2-vitl-fpc64-256
+```
+
+### 7.2 Eight-GPU training
+
+VLA-JEPA trains all approximately 2.77B parameters with DeepSpeed ZeRO-2 and
+bf16. Use eight A100 GPUs for the frozen comparison. With global batch 8 and
+gradient accumulation 1, each GPU receives one sample.
+
+```bash
+cd "${BENCH_ROOT}/VLA-JEPA"
+conda activate VLA_JEPA
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+export NUM_PROCESSES=8
+export GLOBAL_BATCH_SIZE=8
+export GRADIENT_ACCUMULATION_STEPS=1
+export DATA_ROOT="${BENCH_ROOT}/data_v2"
+export WANDB_MODE=online
+export WANDB_ENTITY=your-wandb-entity
+
+bash scripts/vlajepa_humanoidarena_sonic40.sh opendoor
+```
+
+Train the other tasks separately and sequentially:
+
+```bash
+for task in double_desk football pp_box boxing sit_sofa vision_navi; do
+  bash scripts/vlajepa_humanoidarena_sonic40.sh "${task}"
+done
+```
+
+Defaults are 100,000 optimizer steps, horizon 30, global batch 8, checkpoint
+every 5,000 steps, W&B online, Qwen input at 224x224, and the official V-JEPA 2
+world-model path with eight 256x256 frames. The external evaluator still sends
+one current `[480,640,3]` front RGB frame; model-native resizing remains an
+internal preprocessing detail.
+
+### 7.3 Evaluate a VLA-JEPA checkpoint
+
+`MODEL_PATHS_CSV` points directly to a checkpoint `.pt` file such as
+`steps_100000_pytorch_model.pt`. The checkpoint's run directory must also
+contain `config.yaml` and `dataset_statistics.json`.
+
+```bash
+export VLAJEPA_REPO="${BENCH_ROOT}/VLA-JEPA"
+export VLAJEPA_CHECKPOINT=/path/to/vlajepa/run/checkpoints/steps_100000_pytorch_model.pt
+export SERVER_PYTHON=/path/to/VLA_JEPA/bin/python
+export SERVER_SCRIPT="${VLAJEPA_REPO}/examples/HumanoidArena/serve_humanoidarena.py"
+
+cd "${ARENA_ROOT}"
+AUTO_ACTIVATE_CONDA=0 \
+EVAL_PYTHON="${EVAL_PYTHON}" \
+SERVER_PYTHON="${SERVER_PYTHON}" \
+SERVER_SCRIPT="${SERVER_SCRIPT}" \
+SONIC_POLICY_ROOT="${SONIC_POLICY_ROOT}" \
+MODEL_PATHS_CSV="${VLAJEPA_CHECKPOINT}" \
+ENV_CONFIG_YAML=tasks/common_test_config/base_test/open_door_sonic_test.yaml \
+RESULTS_DIR="${ARENA_ROOT}/eval_results/vlajepa_opendoor_base_smoke" \
+SEEDS_OVERRIDE=0 REPEATS_PER_SEED=1 RESUME_LATEST=0 \
+NUM_WORKERS=1 SERVER_GPU_IDS=0 ISAAC_DEVICE=cuda:0 \
+HEADLESS=1 RECORD_VIDEO_EVERY_N=0 \
+SONIC_VLA_ACTION_FORMAT=semantic_v3 \
+bash isaaclab_twist2_g1/script/eval_scripts/sonic_pi05/HSI_open_door_run_vla_eval_parallel.sh
+```
+
+After the one-episode smoke has no `process_error` or `worker_error`, use a new
+results directory, `SEEDS_OVERRIDE='0 1 2'`, `REPEATS_PER_SEED=20`, and
+`RECORD_VIDEO_EVERY_N=1` for the formal 60 episodes.
+
+## 8. Evaluate the other six tasks
 
 Use the same evaluation templates and replace the checkpoint/run directory,
 config, result name, maximum episode length, and task wrapper:
@@ -516,7 +633,7 @@ REPEATS_PER_SEED=20
 SONIC_VLA_ACTION_FORMAT=semantic_v3
 ```
 
-## 8. Official pi0.5 reference evaluation
+## 9. Official pi0.5 reference evaluation
 
 Download the released HumanoidArena models from:
 <https://www.modelscope.cn/models/Twang2026/HumanoidArena_models>
@@ -525,12 +642,12 @@ Keep the released `pi/<task>/...` structure, then use the same
 `sonic_pi05/*_run_vla_eval_parallel.sh` task wrapper with the official pi0.5
 checkpoint selected through `MODEL_PATHS_CSV` or `MODEL_ROOT`. This gives the
 reference model the same SONIC backend, scene config, seeds, repeats, maximum
-steps, and `semantic_v3` action interpretation as GR00T and Psi0.
+steps, and `semantic_v3` action interpretation as GR00T, Psi0, and VLA-JEPA.
 
 Do not convert a pi0.5 checkpoint into a GR00T or Psi0 checkpoint. Only the
 dataset and HumanoidArena observation/action contract are shared.
 
-## 9. Evaluation modes
+## 10. Evaluation modes
 
 This workflow fixes `ENV_CONFIG_YAML` under `base_test` for the direct model
 comparison. HumanoidArena also provides three distribution-shift modes:
@@ -548,7 +665,7 @@ another mode, select the matching YAML under
 `tasks/common_test_config/<mode>/` while keeping the model, seeds, repeats, and
 task limits fixed.
 
-## 10. Results and success-rate calculation
+## 11. Results and success-rate calculation
 
 Every formal result directory should contain:
 
@@ -577,7 +694,7 @@ A formal run is complete only when it contains 60 distinct episode rows. Treat
 `process_error` and `worker_error` as infrastructure failures to diagnose, not
 ordinary policy failures.
 
-## 11. Recommended execution order
+## 12. Recommended execution order
 
 For every algorithm and task:
 
@@ -588,10 +705,10 @@ For every algorithm and task:
 5. Check that the server received `[480,640,3] + [64]` and returned `[30,40]`.
 6. Run 60 base-test episodes with video enabled.
 7. Confirm `summary.jsonl` has 60 rows and no infrastructure failures.
-8. Save the three Git commit hashes, checkpoint path, W&B run URL, and result path.
+8. Save the four Git commit hashes, checkpoint path, W&B run URL, and result path.
 9. Start the next task only after the previous result has been checked.
 
-## 12. Common mistakes
+## 13. Common mistakes
 
 - Downloading the Git LFS pointer instead of the 29 GB dataset archive.
 - Training directly from V3 instead of the converted V2.1 task directory.
@@ -601,5 +718,7 @@ For every algorithm and task:
 - Lowercasing or otherwise changing the canonical task prompt in only one model.
 - Setting `CUDA_VISIBLE_DEVICES=0,1,...,7` but leaving GR00T `NUM_GPUS=1`.
 - Pointing Psi0 evaluation at `ckpt_100000` instead of its parent run directory.
+- Pointing VLA-JEPA evaluation at a run directory instead of its checkpoint `.pt` file.
+- Training the custom V-JEPA 2.1 branch when the intended baseline is official VLA-JEPA/V-JEPA 2.
 - Starting the 60-episode run before a one-episode smoke test passes.
 - Comparing different scene modes, seed counts, repeat counts, or maximum step limits.
