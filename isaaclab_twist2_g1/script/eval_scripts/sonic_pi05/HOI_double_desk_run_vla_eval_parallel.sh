@@ -192,19 +192,9 @@ if [[ -d "${RESULTS_DIR}/episodes" ]]; then
   echo "Resume mode: reuse existing results in ${RESULTS_DIR}"
 fi
 
-ENABLE_MEMORY_LIMIT="${ENABLE_MEMORY_LIMIT:-1}"
-MEM_LIMIT_PERCENT="${MEM_LIMIT_PERCENT:-95}"
-if [[ "${ENABLE_MEMORY_LIMIT}" == "1" ]]; then
-  TOTAL_MEM_KB="$(awk '/MemTotal/ {print $2}' /proc/meminfo)"
-  if [[ -n "${TOTAL_MEM_KB}" ]]; then
-    MEM_LIMIT_KB="$(( TOTAL_MEM_KB * MEM_LIMIT_PERCENT / 100 ))"
-    ulimit -v "${MEM_LIMIT_KB}"
-    ulimit -m "${MEM_LIMIT_KB}" 2>/dev/null || true
-    echo "Memory limit enabled: ${MEM_LIMIT_PERCENT}% of total RAM (${MEM_LIMIT_KB} KB / ${TOTAL_MEM_KB} KB)"
-  else
-    echo "Warning: unable to read /proc/meminfo, skip memory limit" >&2
-  fi
-fi
+# Do not impose ulimit -v/-m here. CUDA/Warp reserves large non-resident virtual
+# address ranges, so a process-wide address-space cap can surface as a false
+# CUDA OOM even when host RAM and VRAM have ample capacity.
 
 ARGS=(
   --task "${TASK_NAME}"
