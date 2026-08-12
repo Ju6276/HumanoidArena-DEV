@@ -50,6 +50,7 @@ Start with the release-facing guides:
 - [Teleoperation and recording](docs/01_teleoperation.md)
 - [Data pipeline](docs/02_data_pipeline.md)
 - [Evaluation](docs/03_evaluation.md)
+- [GR00T N1.7 / Psi0 SONIC40 benchmark workflow](docs/05_groot_psi0_sonic40_benchmark.md)
 
 Additional implementation references:
 
