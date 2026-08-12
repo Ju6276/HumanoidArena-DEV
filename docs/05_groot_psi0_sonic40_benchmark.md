@@ -1,10 +1,10 @@
-# GR00T N1.7 / Psi0 / VLA-JEPA on HumanoidArena: complete SONIC40 workflow
+# GR00T N1.7 / Psi0 / VLA-JEPA / DiT4DiT on HumanoidArena: complete SONIC40 workflow
 
-This guide describes the exact four-repository setup used to train and evaluate
-GR00T N1.7, Psi0, and the official VLA-JEPA baseline on the seven HumanoidArena
-SONIC tasks. HumanoidArena owns the simulator and evaluation protocol; each
-model repository owns its model, training environment, checkpoint, and
-inference server.
+This guide describes the exact five-repository setup used to train and evaluate
+GR00T N1.7, Psi0, the official VLA-JEPA baseline, and DiT4DiT on the seven
+HumanoidArena SONIC tasks. HumanoidArena owns the simulator and evaluation
+protocol; each model repository owns its model, training environment,
+checkpoint, and inference server.
 
 The comparison in this guide uses one policy per task, 100,000 optimizer steps,
 action horizon 30, global batch size 8, W&B online, and 60 base-test evaluation
@@ -12,7 +12,7 @@ episodes per checkpoint (three seeds and 20 repeats per seed).
 
 ## 1. Repositories and responsibilities
 
-Keep the four repositories next to each other:
+Keep the five repositories next to each other:
 
 ```text
 /path/to/benchmark/
@@ -20,6 +20,7 @@ Keep the four repositories next to each other:
 ├── Isaac-GR00T/         GR00T N1.7 data adapter, training, inference bridge
 ├── Psi0/                Psi0 training and HumanoidArena inference server
 ├── VLA-JEPA/            official VLA-JEPA training and inference server
+├── DiT4DiT/             official DiT4DiT training and inference server
 ├── data_v2/             shared converted LeRobot v2.1 datasets
 └── releases/            downloaded archives, models, and simulator assets
 ```
@@ -32,6 +33,7 @@ Use the matching development branches:
 | `Ju6276/Isaac-GR00T-DEV` | `feat/humanoidarena-sonic40` | GR00T N1.7 training and serving |
 | `Ju6276/Psi0-DEV` | `feat/humanoidarena-sonic40` | Psi0 training and serving |
 | `Ju6276/VLA-JEPA-DEV` | `feat/humanoidarena-sonic40` | Official VLA-JEPA training and serving |
+| `Ju6276/DiT4DiT-DEV` | `feat/humanoidarena-sonic40` | Official DiT4DiT training and serving |
 
 ```bash
 export BENCH_ROOT=/path/to/benchmark
@@ -46,15 +48,18 @@ git clone --branch feat/humanoidarena-sonic40 \
   https://github.com/Ju6276/Psi0-DEV.git Psi0
 git clone --branch feat/humanoidarena-sonic40 \
   https://github.com/Ju6276/VLA-JEPA-DEV.git VLA-JEPA
+git clone --branch feat/humanoidarena-sonic40 \
+  https://github.com/Ju6276/DiT4DiT-DEV.git DiT4DiT
 ```
 
-For reproducible runs, record the four commit hashes:
+For reproducible runs, record the five commit hashes:
 
 ```bash
 git -C "${BENCH_ROOT}/HumanoidArena" rev-parse HEAD
 git -C "${BENCH_ROOT}/Isaac-GR00T" rev-parse HEAD
 git -C "${BENCH_ROOT}/Psi0" rev-parse HEAD
 git -C "${BENCH_ROOT}/VLA-JEPA" rev-parse HEAD
+git -C "${BENCH_ROOT}/DiT4DiT" rev-parse HEAD
 ```
 
 The VLA-JEPA SONIC40 adapter starts directly from `ginwind/VLA-JEPA` main at
@@ -116,6 +121,7 @@ model retains its own training-time normalization:
 | GR00T N1.7 | q01/q99 to `[-1,1]` | q01/q99 (`0/1` becomes `-1/+1`) | denormalized to `0/1` |
 | Psi0 | min/max to `[-1,1]` | min/max (`0/1` becomes `-1/+1`) | denormalized to `0/1` |
 | VLA-JEPA | min/max to `[-1,1]` | binary identity in `[0,1]` | thresholded to `0/1` |
+| DiT4DiT | min/max to `[-1,1]` | binary identity in `[0,1]` | thresholded to `0/1` |
 | official pi0.5 | q01/q99 to `[-1,1]` | q01/q99 (`0/1` becomes `-1/+1`) | denormalized to `0/1` |
 
 This is an internal algorithm/preprocessor difference, not a benchmark
@@ -208,7 +214,7 @@ Extract the archive, then identify the seven SONIC task directories. Each input
 directory passed below must itself contain `meta/info.json`. Do not pass a
 TWIST2 directory or a mixed-backend dataset.
 
-The adapters in both model repositories consume LeRobot V2.1. Convert the V3
+All model adapters consume the same LeRobot V2.1 data. Convert the V3
 release once with the GR00T wrapper and keep the converted datasets in a shared
 directory:
 
@@ -604,7 +610,75 @@ After the one-episode smoke has no `process_error` or `worker_error`, use a new
 results directory, `SEEDS_OVERRIDE='0 1 2'`, `REPEATS_PER_SEED=20`, and
 `RECORD_VIDEO_EVERY_N=1` for the formal 60 episodes.
 
-## 8. Evaluate the other six tasks
+## 8. Train DiT4DiT
+
+This adapter starts from the official `Mondo-Robotics/DiT4DiT` main branch and
+keeps its Cosmos-Predict2.5-2B + ActionDiT architecture, AdamW optimizer, bf16,
+Accelerate, and DeepSpeed ZeRO-2 training stack. Only the dataset contract,
+64D/40D ordering, horizon 30 configuration, and HTTP serving boundary are
+adapted.
+
+```bash
+cd "${BENCH_ROOT}/DiT4DiT"
+conda create -n dit4dit python=3.10 -y
+conda activate dit4dit
+pip install -e .
+
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+export NUM_PROCESSES=8
+export GLOBAL_BATCH_SIZE=8
+export GRADIENT_ACCUMULATION_STEPS=1
+export DATA_ROOT="${DATA_ROOT}"
+export BASE_MODEL="${BENCH_ROOT}/releases/Cosmos-Predict2.5-2B-diffusers-base-post-trained"
+export OUTPUT_ROOT="${BENCH_ROOT}/checkpoints/dit4dit_humanoidarena"
+export WANDB_MODE=online
+export WANDB_ENTITY=your-wandb-entity
+export WANDB_PROJECT=HumanoidArena
+
+bash scripts/dit4dit_humanoidarena_sonic40.sh opendoor
+for task in double_desk football pp_box boxing sit_sofa vision_navi; do
+  bash scripts/dit4dit_humanoidarena_sonic40.sh "${task}"
+done
+```
+
+The formal setup is 100,000 optimizer steps per task and
+`global batch = 8 processes * 1 sample/GPU * 1 accumulation = 8`. It trains one
+separate policy per task. The wrapper validates the shared LeRobot v2.1 data
+before starting and keeps W&B online.
+
+Point evaluation at a checkpoint `.pt` file. The run directory must contain
+the matching `config.yaml` and `dataset_statistics.json`:
+
+```bash
+export DIT4DIT_REPO="${BENCH_ROOT}/DiT4DiT"
+export DIT4DIT_CHECKPOINT=/path/to/dit4dit/run/final_model/pytorch_model.pt
+export SERVER_PYTHON=/path/to/dit4dit/bin/python
+export SERVER_SCRIPT="${DIT4DIT_REPO}/examples/HumanoidArena/serve_humanoidarena.py"
+
+cd "${ARENA_ROOT}"
+AUTO_ACTIVATE_CONDA=0 \
+EVAL_PYTHON="${EVAL_PYTHON}" \
+SERVER_PYTHON="${SERVER_PYTHON}" \
+SERVER_SCRIPT="${SERVER_SCRIPT}" \
+SONIC_POLICY_ROOT="${SONIC_POLICY_ROOT}" \
+MODEL_PATHS_CSV="${DIT4DIT_CHECKPOINT}" \
+ENV_CONFIG_YAML=tasks/common_test_config/base_test/open_door_sonic_test.yaml \
+RESULTS_DIR="${ARENA_ROOT}/eval_results/dit4dit_opendoor_base_smoke" \
+SEEDS_OVERRIDE=0 REPEATS_PER_SEED=1 RESUME_LATEST=0 \
+NUM_WORKERS=1 SERVER_GPU_IDS=0 ISAAC_DEVICE=cuda:0 \
+HEADLESS=1 RECORD_VIDEO_EVERY_N=0 \
+SONIC_VLA_ACTION_FORMAT=semantic_v3 \
+bash isaaclab_twist2_g1/script/eval_scripts/sonic_pi05/HSI_open_door_run_vla_eval_parallel.sh
+```
+
+After the smoke succeeds, use a fresh results directory,
+`SEEDS_OVERRIDE='0 1 2'`, `REPEATS_PER_SEED=20`, and
+`RECORD_VIDEO_EVERY_N=1` for the formal 60 episodes. A single 48 GB 4090D can
+load the full model and run `[1,30,40]` inference, but full-parameter ZeRO-2
+optimizer initialization exceeds its memory; use the planned 8×A100 setup for
+training rather than changing the formal configuration.
+
+## 9. Evaluate the other six tasks
 
 Use the same evaluation templates and replace the checkpoint/run directory,
 config, result name, maximum episode length, and task wrapper:
@@ -633,7 +707,7 @@ REPEATS_PER_SEED=20
 SONIC_VLA_ACTION_FORMAT=semantic_v3
 ```
 
-## 9. Official pi0.5 reference evaluation
+## 10. Official pi0.5 reference evaluation
 
 Download the released HumanoidArena models from:
 <https://www.modelscope.cn/models/Twang2026/HumanoidArena_models>
@@ -642,12 +716,13 @@ Keep the released `pi/<task>/...` structure, then use the same
 `sonic_pi05/*_run_vla_eval_parallel.sh` task wrapper with the official pi0.5
 checkpoint selected through `MODEL_PATHS_CSV` or `MODEL_ROOT`. This gives the
 reference model the same SONIC backend, scene config, seeds, repeats, maximum
-steps, and `semantic_v3` action interpretation as GR00T, Psi0, and VLA-JEPA.
+steps, and `semantic_v3` action interpretation as GR00T, Psi0, VLA-JEPA, and
+DiT4DiT.
 
 Do not convert a pi0.5 checkpoint into a GR00T or Psi0 checkpoint. Only the
 dataset and HumanoidArena observation/action contract are shared.
 
-## 10. Evaluation modes
+## 11. Evaluation modes
 
 This workflow fixes `ENV_CONFIG_YAML` under `base_test` for the direct model
 comparison. HumanoidArena also provides three distribution-shift modes:
@@ -665,7 +740,7 @@ another mode, select the matching YAML under
 `tasks/common_test_config/<mode>/` while keeping the model, seeds, repeats, and
 task limits fixed.
 
-## 11. Results and success-rate calculation
+## 12. Results and success-rate calculation
 
 Every formal result directory should contain:
 
@@ -694,7 +769,7 @@ A formal run is complete only when it contains 60 distinct episode rows. Treat
 `process_error` and `worker_error` as infrastructure failures to diagnose, not
 ordinary policy failures.
 
-## 12. Recommended execution order
+## 13. Recommended execution order
 
 For every algorithm and task:
 
@@ -705,10 +780,10 @@ For every algorithm and task:
 5. Check that the server received `[480,640,3] + [64]` and returned `[30,40]`.
 6. Run 60 base-test episodes with video enabled.
 7. Confirm `summary.jsonl` has 60 rows and no infrastructure failures.
-8. Save the four Git commit hashes, checkpoint path, W&B run URL, and result path.
+8. Save the five Git commit hashes, checkpoint path, W&B run URL, and result path.
 9. Start the next task only after the previous result has been checked.
 
-## 13. Common mistakes
+## 14. Common mistakes
 
 - Downloading the Git LFS pointer instead of the 29 GB dataset archive.
 - Training directly from V3 instead of the converted V2.1 task directory.
@@ -719,6 +794,7 @@ For every algorithm and task:
 - Setting `CUDA_VISIBLE_DEVICES=0,1,...,7` but leaving GR00T `NUM_GPUS=1`.
 - Pointing Psi0 evaluation at `ckpt_100000` instead of its parent run directory.
 - Pointing VLA-JEPA evaluation at a run directory instead of its checkpoint `.pt` file.
+- Pointing DiT4DiT evaluation at a run directory instead of its checkpoint `.pt` file.
 - Training the custom V-JEPA 2.1 branch when the intended baseline is official VLA-JEPA/V-JEPA 2.
 - Starting the 60-episode run before a one-episode smoke test passes.
 - Comparing different scene modes, seed counts, repeat counts, or maximum step limits.
