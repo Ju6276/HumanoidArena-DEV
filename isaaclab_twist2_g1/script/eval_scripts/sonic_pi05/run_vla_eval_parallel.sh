@@ -31,6 +31,16 @@ fi
 
 EVAL_PYTHON="${EVAL_PYTHON:-python}"
 
+# Pip-installed ONNX Runtime resolves CUDA/cuDNN from the evaluator environment.
+# Isaac Lab environments commonly keep these shared libraries under
+# site-packages/nvidia/*/lib rather than a system CUDA prefix.
+EVAL_SITE_PACKAGES="$(${EVAL_PYTHON} -c 'import site; print(site.getsitepackages()[0])')"
+for NVIDIA_PY_LIB in "${EVAL_SITE_PACKAGES}"/nvidia/*/lib; do
+  if [[ -d "${NVIDIA_PY_LIB}" ]]; then
+    export LD_LIBRARY_PATH="${NVIDIA_PY_LIB}:${LD_LIBRARY_PATH:-}"
+  fi
+done
+
 resolve_config_path() {
   local config_path="$1"
   if [[ "$config_path" = /* ]]; then

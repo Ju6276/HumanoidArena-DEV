@@ -95,6 +95,8 @@ def _build_sim_env(args) -> tuple[dict[str, str], str]:
     env = os.environ.copy()
     env["PYTHONUNBUFFERED"] = "1"
     env.setdefault("CUDA_DEVICE_ORDER", "PCI_BUS_ID")
+    current_pythonpath = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = PROJECT_ROOT if not current_pythonpath else PROJECT_ROOT + os.pathsep + current_pythonpath
     # Keep all GPUs visible for Vulkan/RTX interop; sim_eval_vla sets the renderer activeGpu.
     return env, str(args.isaac_device or "").strip()
 

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import os
 import random
 import signal
 import ssl
@@ -50,6 +51,7 @@ _TASK_NAME_ALIASES = (
     ("vision_navi", "HSI_vision_navi"),
     ("hsiopendoor", "HSI_open_door"),
     ("opendoor", "HSI_open_door"),
+    ("open the door", "HSI_open_door"),
     ("open_door", "HSI_open_door"),
     ("hsisitsofa", "HSI_sit_sofa"),
     ("sitsofa", "HSI_sit_sofa"),
@@ -80,6 +82,29 @@ def _remap_legacy_checkpoint_ref(value):
         return value, False
     if path.exists():
         return value, False
+
+    # Released checkpoints were produced on more than one training host. Some
+    # point directly at the old compatibility root rather than the legacy
+    # workspace root, but both still refer to the same public tokenizer.
+    if path.name == "paligemma-3b-pt-224":
+        local_tokenizer = Path(
+            os.environ.get(
+                "PALIGEMMA_TOKENIZER_PATH",
+                str(Path.home() / "paligemma-3b-pt-224-modelscope"),
+            )
+        ).expanduser()
+        if (local_tokenizer / "tokenizer.json").is_file():
+            print(
+                f"[lerobot_vla_server] remap legacy tokenizer {value} -> {local_tokenizer}",
+                flush=True,
+            )
+            return str(local_tokenizer), True
+        hub_id = "google/paligemma-3b-pt-224"
+        print(
+            f"[lerobot_vla_server] remap legacy tokenizer {value} -> {hub_id}",
+            flush=True,
+        )
+        return hub_id, True
 
     try:
         path.relative_to(_LEGACY_CHECKPOINT_ROOT)

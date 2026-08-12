@@ -2157,7 +2157,11 @@ class SonicActionProvider(ActionProvider):
         providers = []
         expected_gpu_providers = []
         if device_id is not None:
-            if "TensorrtExecutionProvider" in avail:
+            # ORT wheels may advertise TensorRT even when the host does not have
+            # libnvinfer installed.  Trying it then makes ORT fall all the way
+            # back to CPU instead of continuing with CUDA.
+            use_tensorrt = os.environ.get("SONIC_ORT_USE_TENSORRT", "0") == "1"
+            if use_tensorrt and "TensorrtExecutionProvider" in avail:
                 providers.append(("TensorrtExecutionProvider", {"device_id": device_id}))
                 expected_gpu_providers.append("TensorrtExecutionProvider")
             if "CUDAExecutionProvider" in avail:
