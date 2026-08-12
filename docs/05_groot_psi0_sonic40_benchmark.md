@@ -614,9 +614,11 @@ results directory, `SEEDS_OVERRIDE='0 1 2'`, `REPEATS_PER_SEED=20`, and
 
 This adapter starts from the official `Mondo-Robotics/DiT4DiT` main branch and
 keeps its Cosmos-Predict2.5-2B + ActionDiT architecture, AdamW optimizer, bf16,
-Accelerate, and DeepSpeed ZeRO-2 training stack. Only the dataset contract,
-64D/40D ordering, horizon 30 configuration, and HTTP serving boundary are
-adapted.
+Accelerate, and DeepSpeed ZeRO-2 training stack. It matches the official
+downstream-task scripts by freezing the Cosmos text encoder and VAE while
+training the video transformer/interface and ActionDiT. Only the dataset
+contract, 64D/40D ordering, horizon 30 configuration, and HTTP serving boundary
+are adapted.
 
 ```bash
 cd "${BENCH_ROOT}/DiT4DiT"
@@ -674,9 +676,10 @@ bash isaaclab_twist2_g1/script/eval_scripts/sonic_pi05/HSI_open_door_run_vla_eva
 After the smoke succeeds, use a fresh results directory,
 `SEEDS_OVERRIDE='0 1 2'`, `REPEATS_PER_SEED=20`, and
 `RECORD_VIDEO_EVERY_N=1` for the formal 60 episodes. A single 48 GB 4090D can
-load the full model and run `[1,30,40]` inference, but full-parameter ZeRO-2
-optimizer initialization exceeds its memory; use the planned 8×A100 setup for
-training rather than changing the formal configuration.
+load the full model and run `[1,30,40]` inference. With the official frozen
+text-encoder/VAE recipe it also completes forward and backward, but the first
+AdamW step still exceeds 48 GB while allocating optimizer moments. Use the
+planned 8×A100 setup for training rather than changing the formal configuration.
 
 ## 9. Evaluate the other six tasks
 
