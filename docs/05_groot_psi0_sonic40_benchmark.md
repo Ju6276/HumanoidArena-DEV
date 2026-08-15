@@ -519,6 +519,54 @@ bash scripts/train/psi0/run-humanoidarena-opendoor-train-eval.sh
 Do not run this wrapper after OpenDoor has already been trained unless another
 100,000-step run is intended.
 
+### 6.5 Evaluate all four Table S7 modes
+
+`run-humanoidarena-remaining-train-eval.sh` evaluates all seven Psi0 task
+checkpoints in the four HumanoidArena modes: Base, Execution, Semantic, and
+Visual. The external mode name `visual` maps to the repository's `vision/`
+configuration directory.
+
+The queue treats a result as complete when its `summary.jsonl` contains 60
+episodes, skips that task/mode on later invocations, and resumes a partial
+1–59 episode directory with `RESUME_LATEST=1`. A previously completed Base run
+therefore does not need to be repeated. New task/mode pairs first run one smoke
+episode without video; the smoke directory is trashed after it passes. Set
+`EVAL_ONLY=1` to prevent a missing checkpoint from accidentally starting a new
+training run.
+
+Preview the work without launching Isaac Sim:
+
+```bash
+cd "${BENCH_ROOT}/Psi0"
+SONIC_POLICY_ROOT="${SONIC_POLICY_ROOT}" \
+EVAL_PYTHON="${EVAL_PYTHON}" \
+EVAL_ONLY=1 DRY_RUN=1 \
+bash scripts/train/psi0/run-humanoidarena-remaining-train-eval.sh
+```
+
+Run every missing task/mode:
+
+```bash
+cd "${BENCH_ROOT}/Psi0"
+SONIC_POLICY_ROOT="${SONIC_POLICY_ROOT}" \
+EVAL_PYTHON="${EVAL_PYTHON}" \
+EVAL_ONLY=1 CUDA_VISIBLE_DEVICES=0 \
+bash scripts/train/psi0/run-humanoidarena-remaining-train-eval.sh
+```
+
+`EVAL_TASKS` and `EVAL_MODES` can restrict a run, for example:
+
+```bash
+EVAL_TASKS="opendoor sit_sofa" \
+EVAL_MODES="semantic visual" \
+SONIC_POLICY_ROOT="${SONIC_POLICY_ROOT}" EVAL_PYTHON="${EVAL_PYTHON}" \
+EVAL_ONLY=1 bash scripts/train/psi0/run-humanoidarena-remaining-train-eval.sh
+```
+
+One Psi0+SONIC Table S7 evaluation contains
+`7 tasks × 4 modes × 3 seeds × 20 trials = 1,680 episodes`. If all seven Base
+results already exist, the queue runs only the remaining 1,260 episodes.
+
 ## 7. Train VLA-JEPA
 
 ### 7.1 Official baseline and environment
@@ -771,6 +819,42 @@ PY
 A formal run is complete only when it contains 60 distinct episode rows. Treat
 `process_error` and `worker_error` as infrastructure failures to diagnose, not
 ordinary policy failures.
+
+### 12.1 Table S7 metrics and Psi0 report
+
+Table S7 reports task success rate (SR, higher is better) as the mean and
+population standard deviation across the three 20-episode seed success rates.
+HOI contains Football, DoubleDesk, and P&PBox. HSI contains OpenDoor, SitSofa,
+Boxing, and VisNavi. The suite AVG mean/std is computed over all task×seed
+success rates in that suite. AFR (lower is better) is the number of episodes
+whose `failure_reason` is `fall`, divided by all 420 episodes in that mode; it
+is not the total failure rate because failures may also be timeouts.
+
+Generate the same aggregation from the 28 complete Psi0 result directories:
+
+```bash
+cd "${ARENA_ROOT}"
+python isaaclab_twist2_g1/script/eval_scripts/summarize_psi0_table_s7.py \
+  --results-root "${ARENA_ROOT}/eval_results"
+```
+
+The command validates exactly 3 seeds × 20 distinct episodes for every
+task/mode, rejects infrastructure failures or zero-step episodes, and writes:
+
+```text
+eval_results/psi0_sonic_table_s7/README.md
+eval_results/psi0_sonic_table_s7/task_metrics.csv
+eval_results/psi0_sonic_table_s7/metrics.json
+```
+
+The completed Psi0 SONIC→SONIC results are:
+
+| Mode | Method | AFR ↓ | Football | DoubleDesk | P&PBox | HOI AVG | OpenDoor | SitSofa | Boxing | VisNavi | HSI AVG |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Base | Psi0 | 9.52% | 26.7±2.4% | 13.3±10.3% | 26.7±8.5% | 22.22±10.03% | 78.3±6.2% | 85.0±4.1% | 38.3±8.5% | 41.7±24.9% | 60.83±25.07% |
+| Visual | Psi0 | 9.76% | 18.3±4.7% | 11.7±2.4% | 25.0±14.7% | 18.33±10.54% | 78.3±2.4% | 58.3±2.4% | 45.0±7.1% | 40.0±10.8% | 55.42±16.26% |
+| Semantic | Psi0 | 4.52% | 18.3±10.3% | 10.0±8.2% | 18.3±4.7% | 15.56±8.96% | 68.3±2.4% | 60.0±4.1% | 43.3±20.5% | 25.0±0.0% | 49.17±19.67% |
+| Execution | Psi0 | 7.62% | 18.3±6.2% | 16.7±13.1% | 28.3±13.1% | 21.11±12.42% | 71.7±2.4% | 73.3±12.5% | 43.3±8.5% | 50.0±4.1% | 59.58±15.34% |
 
 ## 13. Recommended execution order
 
