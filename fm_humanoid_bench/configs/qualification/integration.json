@@ -1,0 +1,30 @@
+{
+  "schema": "arena_benchmark_suite_v1",
+  "name": "psi0_legacy_baseline_qualification",
+  "models": [
+    "psi0_sit_sofa"
+  ],
+  "bodies": [
+    "sonic",
+    "twist2"
+  ],
+  "tasks": [
+    "sit_sofa"
+  ],
+  "modes": [
+    "Base"
+  ],
+  "tracks": [
+    "reference"
+  ],
+  "conditions": [
+    "none"
+  ],
+  "group_seeds": [
+    0
+  ],
+  "repeats": 1,
+  "execute_frames": 20,
+  "environment_backend": "twist2",
+  "notes": "Two complete episodes; uses original HA episode seed derived from group0 repeat0. Not a success-rate reproduction."
+}

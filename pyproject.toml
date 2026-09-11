@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fm-humanoid-bench"
+version = "0.1.0"
+description = "Foundation-model Brain and Body benchmark for humanoid agents"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy", "Pillow", "PyYAML", "pyzmq", "requests", "scipy"]
+
+[project.scripts]
+fmhb-run = "fm_humanoid_bench.cli.run_episode:main"
+fmhb-suite = "fm_humanoid_bench.cli.run_suite:main"
+fmhb-references = "fm_humanoid_bench.cli.references:main"
+fmhb-qualify-brains = "fm_humanoid_bench.cli.qualify_brains:main"
+
+[tool.setuptools.packages.find]
+include = ["fm_humanoid_bench*"]
+
+[tool.setuptools.package-data]
+fm_humanoid_bench = ["*.json", "prompts/*.txt", "configs/**/*.json", "references/**/*.json", "references/**/*.png"]

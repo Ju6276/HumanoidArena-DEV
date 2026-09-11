@@ -1,0 +1,46 @@
+{
+  "schema": "arena_benchmark_suite_v1",
+  "name": "psi0_sonic40_table_s7_reproduction",
+  "models": [
+    "psi0_boxing",
+    "psi0_double_desk",
+    "psi0_football",
+    "psi0_open_door",
+    "psi0_pp_box",
+    "psi0_sit_sofa",
+    "psi0_vision_navi"
+  ],
+  "bodies": [
+    "sonic"
+  ],
+  "tasks": [
+    "open_door",
+    "sit_sofa",
+    "boxing",
+    "football",
+    "pp_box",
+    "doubledesk",
+    "vision_navi"
+  ],
+  "modes": [
+    "Base",
+    "Visual",
+    "Semantic",
+    "Execution"
+  ],
+  "tracks": [
+    "reference"
+  ],
+  "conditions": [
+    "none"
+  ],
+  "group_seeds": [
+    0,
+    1,
+    2
+  ],
+  "repeats": 20,
+  "execute_frames": 20,
+  "environment_backend": "sonic",
+  "notes": "Exact Psi0 SONIC40 Table S7 evaluation population: one task-specific 100k checkpoint per task, four modes, three seeds, twenty episodes per seed; 1680 episodes total. Horizon remains checkpoint-native 30."
+}

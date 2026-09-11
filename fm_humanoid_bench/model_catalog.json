@@ -1,0 +1,1830 @@
+{
+  "schema": "arena_model_catalog_v1",
+  "checked_date": "2026-09-11",
+  "inventory_scope": "Read-only local file/config checks; no GPU loading or new training.",
+  "models": {
+    "psi0_boxing": {
+      "kind": "http",
+      "family": "psi0",
+      "brain_class": "vla",
+      "task": "boxing",
+      "tasks": [
+        "boxing"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-boxing-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608131056",
+      "checkpoint": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-boxing-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608131056/checkpoints/ckpt_100000/model.safetensors",
+      "server_command": [
+        "/home/d024/Psi0/.venv-psi/bin/python",
+        "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+        "--policy-path",
+        "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-boxing-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608131056",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}",
+        "--checkpoint-step",
+        "100000",
+        "--inference-steps",
+        "10"
+      ],
+      "cwd": "/home/d024/Psi0",
+      "env": {
+        "PYTHONPATH": "/home/d024/Psi0/src"
+      },
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "constructor_uses_training_seed; reset_clears_previous_action_only; fresh_process_each_episode",
+      "evidence": [
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-boxing-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608131056/run_config.json",
+          "bytes": 14874,
+          "sha256": "f449123e9e4f9dc0d3ef3b0b35c4c4d8b5ca51f529ad4f19fcf1fc5e86483ba7"
+        },
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-boxing-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608131056/checkpoints/ckpt_100000/model.safetensors",
+          "bytes": 6253871272,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+          "bytes": 7563,
+          "sha256": "65a5a9508bcf01663a73ddf458448a66d4bdb9303f791bd70b40224eb33e78a3"
+        }
+      ],
+      "materialized_weights_verified": true,
+      "model_seed": 292285
+    },
+    "psi0_double_desk": {
+      "kind": "http",
+      "family": "psi0",
+      "brain_class": "vla",
+      "task": "doubledesk",
+      "tasks": [
+        "doubledesk"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-double_desk-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608121632",
+      "checkpoint": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-double_desk-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608121632/checkpoints/ckpt_100000/model.safetensors",
+      "server_command": [
+        "/home/d024/Psi0/.venv-psi/bin/python",
+        "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+        "--policy-path",
+        "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-double_desk-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608121632",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}",
+        "--checkpoint-step",
+        "100000",
+        "--inference-steps",
+        "10"
+      ],
+      "cwd": "/home/d024/Psi0",
+      "env": {
+        "PYTHONPATH": "/home/d024/Psi0/src"
+      },
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "constructor_uses_training_seed; reset_clears_previous_action_only; fresh_process_each_episode",
+      "evidence": [
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-double_desk-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608121632/run_config.json",
+          "bytes": 14885,
+          "sha256": "acfb985a4be39ba43e46a807a5dff9e771bb800b68ba9df9ede40849cc32ab0f"
+        },
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-double_desk-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608121632/checkpoints/ckpt_100000/model.safetensors",
+          "bytes": 6253871272,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+          "bytes": 7563,
+          "sha256": "65a5a9508bcf01663a73ddf458448a66d4bdb9303f791bd70b40224eb33e78a3"
+        }
+      ],
+      "materialized_weights_verified": true,
+      "model_seed": 292285
+    },
+    "psi0_football": {
+      "kind": "http",
+      "family": "psi0",
+      "brain_class": "vla",
+      "task": "football",
+      "tasks": [
+        "football"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-football-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608122304",
+      "checkpoint": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-football-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608122304/checkpoints/ckpt_100000/model.safetensors",
+      "server_command": [
+        "/home/d024/Psi0/.venv-psi/bin/python",
+        "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+        "--policy-path",
+        "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-football-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608122304",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}",
+        "--checkpoint-step",
+        "100000",
+        "--inference-steps",
+        "10"
+      ],
+      "cwd": "/home/d024/Psi0",
+      "env": {
+        "PYTHONPATH": "/home/d024/Psi0/src"
+      },
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "constructor_uses_training_seed; reset_clears_previous_action_only; fresh_process_each_episode",
+      "evidence": [
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-football-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608122304/run_config.json",
+          "bytes": 14848,
+          "sha256": "04d33730db08208aa4e2e3c905de0647dec78d7677ef8c803b0828fc4f4a32e9"
+        },
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-football-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608122304/checkpoints/ckpt_100000/model.safetensors",
+          "bytes": 6253871272,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+          "bytes": 7563,
+          "sha256": "65a5a9508bcf01663a73ddf458448a66d4bdb9303f791bd70b40224eb33e78a3"
+        }
+      ],
+      "materialized_weights_verified": true,
+      "model_seed": 292285
+    },
+    "psi0_open_door": {
+      "kind": "http",
+      "family": "psi0",
+      "brain_class": "vla",
+      "task": "open_door",
+      "tasks": [
+        "open_door"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-opendoor-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608111735",
+      "checkpoint": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-opendoor-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608111735/checkpoints/ckpt_100000/model.safetensors",
+      "server_command": [
+        "/home/d024/Psi0/.venv-psi/bin/python",
+        "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+        "--policy-path",
+        "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-opendoor-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608111735",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}",
+        "--checkpoint-step",
+        "100000",
+        "--inference-steps",
+        "10"
+      ],
+      "cwd": "/home/d024/Psi0",
+      "env": {
+        "PYTHONPATH": "/home/d024/Psi0/src"
+      },
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "constructor_uses_training_seed; reset_clears_previous_action_only; fresh_process_each_episode",
+      "evidence": [
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-opendoor-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608111735/run_config.json",
+          "bytes": 14866,
+          "sha256": "648a4e2fe4dbc0c1a2979e0322a819c1f0c18db79e868a356250256b19aa5884"
+        },
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-opendoor-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608111735/checkpoints/ckpt_100000/model.safetensors",
+          "bytes": 6253871272,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+          "bytes": 7563,
+          "sha256": "65a5a9508bcf01663a73ddf458448a66d4bdb9303f791bd70b40224eb33e78a3"
+        }
+      ],
+      "materialized_weights_verified": true,
+      "model_seed": 292285
+    },
+    "psi0_pp_box": {
+      "kind": "http",
+      "family": "psi0",
+      "brain_class": "vla",
+      "task": "pp_box",
+      "tasks": [
+        "pp_box"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-pp_box-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608130454",
+      "checkpoint": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-pp_box-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608130454/checkpoints/ckpt_100000/model.safetensors",
+      "server_command": [
+        "/home/d024/Psi0/.venv-psi/bin/python",
+        "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+        "--policy-path",
+        "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-pp_box-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608130454",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}",
+        "--checkpoint-step",
+        "100000",
+        "--inference-steps",
+        "10"
+      ],
+      "cwd": "/home/d024/Psi0",
+      "env": {
+        "PYTHONPATH": "/home/d024/Psi0/src"
+      },
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "constructor_uses_training_seed; reset_clears_previous_action_only; fresh_process_each_episode",
+      "evidence": [
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-pp_box-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608130454/run_config.json",
+          "bytes": 14861,
+          "sha256": "355da2d1b68977fa013cda894547a508115a512faad45ab648907aa332018a0a"
+        },
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-pp_box-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608130454/checkpoints/ckpt_100000/model.safetensors",
+          "bytes": 6253871272,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+          "bytes": 7563,
+          "sha256": "65a5a9508bcf01663a73ddf458448a66d4bdb9303f791bd70b40224eb33e78a3"
+        }
+      ],
+      "materialized_weights_verified": true,
+      "model_seed": 292285
+    },
+    "psi0_sit_sofa": {
+      "kind": "http",
+      "family": "psi0",
+      "brain_class": "vla",
+      "task": "sit_sofa",
+      "tasks": [
+        "sit_sofa"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-sit_sofa-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608131628",
+      "checkpoint": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-sit_sofa-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608131628/checkpoints/ckpt_100000/model.safetensors",
+      "server_command": [
+        "/home/d024/Psi0/.venv-psi/bin/python",
+        "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+        "--policy-path",
+        "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-sit_sofa-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608131628",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}",
+        "--checkpoint-step",
+        "100000",
+        "--inference-steps",
+        "10"
+      ],
+      "cwd": "/home/d024/Psi0",
+      "env": {
+        "PYTHONPATH": "/home/d024/Psi0/src"
+      },
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "constructor_uses_training_seed; reset_clears_previous_action_only; fresh_process_each_episode",
+      "evidence": [
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-sit_sofa-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608131628/run_config.json",
+          "bytes": 14892,
+          "sha256": "f0cb14224fc64674b5b4bbaf643fd63dfec8e29975f620bd47388b87f82f48bf"
+        },
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-sit_sofa-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608131628/checkpoints/ckpt_100000/model.safetensors",
+          "bytes": 6253871272,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+          "bytes": 7563,
+          "sha256": "65a5a9508bcf01663a73ddf458448a66d4bdb9303f791bd70b40224eb33e78a3"
+        }
+      ],
+      "materialized_weights_verified": true,
+      "model_seed": 292285
+    },
+    "psi0_vision_navi": {
+      "kind": "http",
+      "family": "psi0",
+      "brain_class": "vla",
+      "task": "vision_navi",
+      "tasks": [
+        "vision_navi"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-vision_navi-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608132206",
+      "checkpoint": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-vision_navi-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608132206/checkpoints/ckpt_100000/model.safetensors",
+      "server_command": [
+        "/home/d024/Psi0/.venv-psi/bin/python",
+        "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+        "--policy-path",
+        "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-vision_navi-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608132206",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}",
+        "--checkpoint-step",
+        "100000",
+        "--inference-steps",
+        "10"
+      ],
+      "cwd": "/home/d024/Psi0",
+      "env": {
+        "PYTHONPATH": "/home/d024/Psi0/src"
+      },
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "constructor_uses_training_seed; reset_clears_previous_action_only; fresh_process_each_episode",
+      "evidence": [
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-vision_navi-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608132206/run_config.json",
+          "bytes": 14891,
+          "sha256": "7e316e446357d4e579290edc2ca092fc3c72bd2f561ba0643d4171ebbb1e2dfa"
+        },
+        {
+          "path": "/home/d024/Psi0/.runs_humanoidarena/finetune/humanoidarena-sonic-vision_navi-psi0-canonical40-h30-100k.real.flow1000.cosine.lr1.0e-04.b8.gpus1.2608132206/checkpoints/ckpt_100000/model.safetensors",
+          "bytes": 6253871272,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Psi0/src/psi/deploy/psi0_serve_humanoidarena.py",
+          "bytes": 7563,
+          "sha256": "65a5a9508bcf01663a73ddf458448a66d4bdb9303f791bd70b40224eb33e78a3"
+        }
+      ],
+      "materialized_weights_verified": true,
+      "model_seed": 292285
+    },
+    "groot_open_door": {
+      "kind": "http",
+      "family": "groot",
+      "brain_class": "vla",
+      "task": "open_door",
+      "tasks": [
+        "open_door"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_opendoor_groot_n17_100k/humanoidarena-sonic-opendoor-canonical40-h30-100k/checkpoint-100000",
+      "checkpoint": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_opendoor_groot_n17_100k/humanoidarena-sonic-opendoor-canonical40-h30-100k/checkpoint-100000",
+      "server_command": [
+        "/home/d024/Isaac-GR00T/.venv/bin/python",
+        "/home/d024/Isaac-GR00T/examples/HumanoidArena/serve_eval_stack.py",
+        "--policy-path",
+        "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_opendoor_groot_n17_100k/humanoidarena-sonic-opendoor-canonical40-h30-100k/checkpoint-100000",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "/home/d024/Isaac-GR00T",
+      "env": {},
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "Gr00tPolicy.reset(options) is no-op; do not infer model RNG seed from episode seed",
+      "evidence": [
+        {
+          "path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_opendoor_groot_n17_100k/humanoidarena-sonic-opendoor-canonical40-h30-100k/checkpoint-100000/processor_config.json",
+          "bytes": 27371,
+          "sha256": "c4140760b3b2a2db5c32037cd625e457717eb42932dd5945cff4a931c25ba3ae"
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_opendoor_groot_n17_100k/humanoidarena-sonic-opendoor-canonical40-h30-100k/checkpoint-100000/model.safetensors.index.json",
+          "bytes": 104913,
+          "sha256": "12117379d91d029c5979a585d07ba794001730c9516d6de5512e3dedfee30730"
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/examples/HumanoidArena/serve_eval_stack.py",
+          "bytes": 3069,
+          "sha256": "1261c95d56ea3b880141be0845c9058cbdc75af8c9c42217049a1ed781c4ed68"
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/examples/HumanoidArena/serve_http_bridge.py",
+          "bytes": 6784,
+          "sha256": "3bcac5c21f58b5f59ddd3de67b7de351201c192ca19a3dc23b019d876dfcfb4e"
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_opendoor_groot_n17_100k/humanoidarena-sonic-opendoor-canonical40-h30-100k/checkpoint-100000/model-00001-of-00003.safetensors",
+          "bytes": 4986649584,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_opendoor_groot_n17_100k/humanoidarena-sonic-opendoor-canonical40-h30-100k/checkpoint-100000/model-00002-of-00003.safetensors",
+          "bytes": 4970792616,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_opendoor_groot_n17_100k/humanoidarena-sonic-opendoor-canonical40-h30-100k/checkpoint-100000/model-00003-of-00003.safetensors",
+          "bytes": 2618758696,
+          "git_lfs_pointer": false,
+          "materialized": true
+        }
+      ],
+      "materialized_weights_verified": true,
+      "model_version": "GR00T N1.7",
+      "training_step": 100000
+    },
+    "groot_double_desk": {
+      "kind": "http",
+      "family": "groot",
+      "brain_class": "vla",
+      "task": "doubledesk",
+      "tasks": [
+        "doubledesk"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_double_desk_groot_n17_100k/humanoidarena-sonic-double_desk-canonical40-h30-100k/checkpoint-100000",
+      "checkpoint": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_double_desk_groot_n17_100k/humanoidarena-sonic-double_desk-canonical40-h30-100k/checkpoint-100000",
+      "server_command": [
+        "/home/d024/Isaac-GR00T/.venv/bin/python",
+        "/home/d024/Isaac-GR00T/examples/HumanoidArena/serve_eval_stack.py",
+        "--policy-path",
+        "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_double_desk_groot_n17_100k/humanoidarena-sonic-double_desk-canonical40-h30-100k/checkpoint-100000",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "/home/d024/Isaac-GR00T",
+      "env": {},
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "Gr00tPolicy.reset(options) is no-op; do not infer model RNG seed from episode seed",
+      "evidence": [
+        {
+          "path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_double_desk_groot_n17_100k/humanoidarena-sonic-double_desk-canonical40-h30-100k/checkpoint-100000/processor_config.json",
+          "bytes": 27371,
+          "sha256": "c4140760b3b2a2db5c32037cd625e457717eb42932dd5945cff4a931c25ba3ae"
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_double_desk_groot_n17_100k/humanoidarena-sonic-double_desk-canonical40-h30-100k/checkpoint-100000/model.safetensors.index.json",
+          "bytes": 104913,
+          "sha256": "12117379d91d029c5979a585d07ba794001730c9516d6de5512e3dedfee30730"
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/examples/HumanoidArena/serve_eval_stack.py",
+          "bytes": 3069,
+          "sha256": "1261c95d56ea3b880141be0845c9058cbdc75af8c9c42217049a1ed781c4ed68"
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/examples/HumanoidArena/serve_http_bridge.py",
+          "bytes": 6784,
+          "sha256": "3bcac5c21f58b5f59ddd3de67b7de351201c192ca19a3dc23b019d876dfcfb4e"
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_double_desk_groot_n17_100k/humanoidarena-sonic-double_desk-canonical40-h30-100k/checkpoint-100000/model-00001-of-00003.safetensors",
+          "bytes": 4986649584,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_double_desk_groot_n17_100k/humanoidarena-sonic-double_desk-canonical40-h30-100k/checkpoint-100000/model-00002-of-00003.safetensors",
+          "bytes": 4970792616,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "/home/d024/Isaac-GR00T/outputs/humanoidarena_sonic_double_desk_groot_n17_100k/humanoidarena-sonic-double_desk-canonical40-h30-100k/checkpoint-100000/model-00003-of-00003.safetensors",
+          "bytes": 2618758696,
+          "git_lfs_pointer": false,
+          "materialized": true
+        }
+      ],
+      "materialized_weights_verified": true,
+      "model_version": "GR00T N1.7",
+      "training_step": 100000
+    },
+    "pi05_sonic_double_desk": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "doubledesk",
+      "tasks": [
+        "doubledesk"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_sonic_doubledesk_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_sonic_doubledesk_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_sonic_doubledesk_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_sonic_doubledesk_0529/100000/pretrained_model/config.json",
+          "bytes": 3912,
+          "sha256": "8adc714c9e5aab70939e5bfbc5cec6d6e100b9b817e810ca6aec6088ec466a63"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_sonic_doubledesk_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 9354116320,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_sonic_doubledesk_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 10040,
+          "git_lfs_pointer": false,
+          "materialized": true,
+          "sha256": "7f8156df6800cb196253579ea4233dca6e3cd337fa82f7d5e1dc59c9685f6628"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_sonic_doubledesk_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 10040,
+          "git_lfs_pointer": false,
+          "materialized": true,
+          "sha256": "7f8156df6800cb196253579ea4233dca6e3cd337fa82f7d5e1dc59c9685f6628"
+        }
+      ],
+      "materialized_weights_verified": true,
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_twist2_double_desk": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "doubledesk",
+      "tasks": [
+        "doubledesk"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "twist2",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_twist2_doubledesk_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_twist2_doubledesk_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_twist2_doubledesk_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_twist2_doubledesk_0529/100000/pretrained_model/config.json",
+          "bytes": 3912,
+          "sha256": "8adc714c9e5aab70939e5bfbc5cec6d6e100b9b817e810ca6aec6088ec466a63"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_twist2_doubledesk_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "998bc6ebf80db19bd8732cd51e2dd4d09d013ea55d373b2c63bffaa0935e77cc"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_twist2_doubledesk_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "0e072313813dcce4e1a950bc9891c5ef0ba4fcfc1348d2fd63a54a35f672f9f1"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_twist2_doubledesk_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "0e072313813dcce4e1a950bc9891c5ef0ba4fcfc1348d2fd63a54a35f672f9f1"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_twist2_doubledesk_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_twist2_doubledesk_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HOI_double_desk/pi05_twist2_doubledesk_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_sonic_football": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "football",
+      "tasks": [
+        "football"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_sonic_football_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_sonic_football_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_sonic_football_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_sonic_football_0529/100000/pretrained_model/config.json",
+          "bytes": 3912,
+          "sha256": "8adc714c9e5aab70939e5bfbc5cec6d6e100b9b817e810ca6aec6088ec466a63"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_sonic_football_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "871a8dc95c99161629745979f944246273347041b965418e4f9ef9da1ce17753"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_sonic_football_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "8d75dd9642650dcb7447afbfe168e806b614b9259f72b3c457cf741553e46aca"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_sonic_football_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "8d75dd9642650dcb7447afbfe168e806b614b9259f72b3c457cf741553e46aca"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_sonic_football_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_sonic_football_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_sonic_football_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_twist2_football": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "football",
+      "tasks": [
+        "football"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "twist2",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_twist2_football_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_twist2_football_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_twist2_football_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_twist2_football_0529/100000/pretrained_model/config.json",
+          "bytes": 3912,
+          "sha256": "8adc714c9e5aab70939e5bfbc5cec6d6e100b9b817e810ca6aec6088ec466a63"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_twist2_football_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "8e7901ce08f42f87473738650a6dfd52cf7a068a1c3ec64a153b14969c09689a"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_twist2_football_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "e8a6a80082fcd4beac8670c812d47972cd7fd1623cd590d903a1b6c658dcb016"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_twist2_football_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "e8a6a80082fcd4beac8670c812d47972cd7fd1623cd590d903a1b6c658dcb016"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_twist2_football_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_twist2_football_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HOI_football/pi05_twist2_football_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_sonic_pp_box": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "pp_box",
+      "tasks": [
+        "pp_box"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_sonic_ppbox_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_sonic_ppbox_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_sonic_ppbox_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_sonic_ppbox_0529/100000/pretrained_model/config.json",
+          "bytes": 3912,
+          "sha256": "8adc714c9e5aab70939e5bfbc5cec6d6e100b9b817e810ca6aec6088ec466a63"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_sonic_ppbox_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "cf524b1bcbdf116a1197f19a31eff6fe55b51c1a457f53502a7a54fc8b2add21"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_sonic_ppbox_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "eab8773d85a9881fdf479b31ba55bd610c4a1a74910508100527b09635a5e759"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_sonic_ppbox_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "eab8773d85a9881fdf479b31ba55bd610c4a1a74910508100527b09635a5e759"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_sonic_ppbox_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_sonic_ppbox_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_sonic_ppbox_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_twist2_pp_box": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "pp_box",
+      "tasks": [
+        "pp_box"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "twist2",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_twist2_ppbox_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_twist2_ppbox_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_twist2_ppbox_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_twist2_ppbox_0529/100000/pretrained_model/config.json",
+          "bytes": 3912,
+          "sha256": "8adc714c9e5aab70939e5bfbc5cec6d6e100b9b817e810ca6aec6088ec466a63"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_twist2_ppbox_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "3f68fe5ebe27721a67aa59dae2e70161e2619c0c51707510a86c5c3fb6982667"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_twist2_ppbox_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "988f24038b24ce0b37623fb82a5fe5f0872954ca7cc42424e36f580d00846331"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_twist2_ppbox_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "988f24038b24ce0b37623fb82a5fe5f0872954ca7cc42424e36f580d00846331"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_twist2_ppbox_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_twist2_ppbox_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HOI_pp_box/pi05_twist2_ppbox_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_sonic_boxing": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "boxing",
+      "tasks": [
+        "boxing"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_sonic_boxing_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_sonic_boxing_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_sonic_boxing_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_sonic_boxing_0529/100000/pretrained_model/config.json",
+          "bytes": 3930,
+          "sha256": "488b9f6c4b483ea4f84dec46985671a344bf4a49fb50fd3591350282ef6a0aa3"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_sonic_boxing_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "c3f493b7cb622e3dad060931fd6e64be6b6963b31346fd98671f59a08e0549be"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_sonic_boxing_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "6aeb594afe54a23d87cf4436bbe5d25f06c10d15971ad1c59e93a81c5d7b6ead"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_sonic_boxing_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "6aeb594afe54a23d87cf4436bbe5d25f06c10d15971ad1c59e93a81c5d7b6ead"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_sonic_boxing_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_sonic_boxing_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_sonic_boxing_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_twist2_boxing": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "boxing",
+      "tasks": [
+        "boxing"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "twist2",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_twist2_boxing_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_twist2_boxing_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_twist2_boxing_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_twist2_boxing_0529/100000/pretrained_model/config.json",
+          "bytes": 3930,
+          "sha256": "488b9f6c4b483ea4f84dec46985671a344bf4a49fb50fd3591350282ef6a0aa3"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_twist2_boxing_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "278993bf19623fc1abcfdc4df2a09eb764fb99f1694116b6a06f4c97bd7ce825"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_twist2_boxing_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "145aa780aecbb2bff41f43ac94e4a7cdfb7dcfb171e187c092d95e31c48a1a17"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_twist2_boxing_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "145aa780aecbb2bff41f43ac94e4a7cdfb7dcfb171e187c092d95e31c48a1a17"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_twist2_boxing_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_twist2_boxing_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_boxing/pi05_twist2_boxing_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_sonic_open_door": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "open_door",
+      "tasks": [
+        "open_door"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_sonic_opendoor_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_sonic_opendoor_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_sonic_opendoor_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": true,
+      "qualification": "checkpoint_present_contract_checked",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_sonic_opendoor_0529/100000/pretrained_model/config.json",
+          "bytes": 3930,
+          "sha256": "488b9f6c4b483ea4f84dec46985671a344bf4a49fb50fd3591350282ef6a0aa3"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_sonic_opendoor_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 9354116320,
+          "git_lfs_pointer": false,
+          "materialized": true
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_sonic_opendoor_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 10040,
+          "git_lfs_pointer": false,
+          "materialized": true,
+          "sha256": "452f1aed18fe4b4ba48b2ca728481bf4990602d71ac5c32f6b5c0c97fc6a175d"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_sonic_opendoor_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 10040,
+          "git_lfs_pointer": false,
+          "materialized": true,
+          "sha256": "452f1aed18fe4b4ba48b2ca728481bf4990602d71ac5c32f6b5c0c97fc6a175d"
+        }
+      ],
+      "materialized_weights_verified": true,
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_twist2_open_door": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "open_door",
+      "tasks": [
+        "open_door"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "twist2",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_twist2_opendoor_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_twist2_opendoor_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_twist2_opendoor_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_twist2_opendoor_0529/100000/pretrained_model/config.json",
+          "bytes": 3930,
+          "sha256": "488b9f6c4b483ea4f84dec46985671a344bf4a49fb50fd3591350282ef6a0aa3"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_twist2_opendoor_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "7d6cd1531de6b1d4f6d5dbe3addad49d2f719bee0e0c620d81467533c4bf3e7f"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_twist2_opendoor_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "e84321093ebd4ee1bacfa757870a7c112c90376d4ed8683a888b9311524e4b24"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_twist2_opendoor_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "e84321093ebd4ee1bacfa757870a7c112c90376d4ed8683a888b9311524e4b24"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_twist2_opendoor_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_twist2_opendoor_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_open_door/pi05_twist2_opendoor_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_sonic_sit_sofa": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "sit_sofa",
+      "tasks": [
+        "sit_sofa"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_sonic_sitsofa_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_sonic_sitsofa_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_sonic_sitsofa_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_sonic_sitsofa_0529/100000/pretrained_model/config.json",
+          "bytes": 3930,
+          "sha256": "488b9f6c4b483ea4f84dec46985671a344bf4a49fb50fd3591350282ef6a0aa3"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_sonic_sitsofa_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "bff409d78a60075a424cd14ad7815eafca571e308f0ae347dc5dab305310d59d"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_sonic_sitsofa_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "0f2d07c4e695902d7e4c5aa3504cf6995ae674b4da8e44d8cd97c4ff0ed30e7f"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_sonic_sitsofa_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "0f2d07c4e695902d7e4c5aa3504cf6995ae674b4da8e44d8cd97c4ff0ed30e7f"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_sonic_sitsofa_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_sonic_sitsofa_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_sonic_sitsofa_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_twist2_sit_sofa": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "sit_sofa",
+      "tasks": [
+        "sit_sofa"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "twist2",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_twist2_sitsofa_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_twist2_sitsofa_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_twist2_sitsofa_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_twist2_sitsofa_0529/100000/pretrained_model/config.json",
+          "bytes": 3930,
+          "sha256": "488b9f6c4b483ea4f84dec46985671a344bf4a49fb50fd3591350282ef6a0aa3"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_twist2_sitsofa_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "64317c118c907e0824f3dc9924c6b3a637c0ea46f3d210db9c7892b272e7f0a7"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_twist2_sitsofa_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "5931da05c5b5a5cfed1ee4aefba7a2b89c1330d2a988b1beb62b9a35fde2eb1b"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_twist2_sitsofa_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "5931da05c5b5a5cfed1ee4aefba7a2b89c1330d2a988b1beb62b9a35fde2eb1b"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_twist2_sitsofa_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_twist2_sitsofa_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_sit_sofa/pi05_twist2_sitsofa_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_sonic_vision_navi": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "vision_navi",
+      "tasks": [
+        "vision_navi"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_sonic_visionnavi_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_sonic_visionnavi_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_sonic_visionnavi_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_sonic_visionnavi_0529/100000/pretrained_model/config.json",
+          "bytes": 3930,
+          "sha256": "488b9f6c4b483ea4f84dec46985671a344bf4a49fb50fd3591350282ef6a0aa3"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_sonic_visionnavi_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "a6a1841690699073d55571630196ae29bf12e0594c775686c29d4e5eca563cea"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_sonic_visionnavi_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "ce2c9c812a2ae20394ad26b135635a89d14c4c6f37a8236438a37a15e3c29e28"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_sonic_visionnavi_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "ce2c9c812a2ae20394ad26b135635a89d14c4c6f37a8236438a37a15e3c29e28"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_sonic_visionnavi_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_sonic_visionnavi_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_sonic_visionnavi_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "pi05_twist2_vision_navi": {
+      "kind": "http",
+      "family": "pi05",
+      "brain_class": "vla",
+      "task": "vision_navi",
+      "tasks": [
+        "vision_navi"
+      ],
+      "horizon": 20,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "twist2",
+      "model_path": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_twist2_visionnavi_0529/100000/pretrained_model",
+      "checkpoint": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_twist2_visionnavi_0529/100000/pretrained_model/model.safetensors",
+      "server_command": [
+        "/home/d024/miniconda3/envs/humanoidarena_lerobot/bin/python",
+        "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+        "--policy-path",
+        "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_twist2_visionnavi_0529/100000/pretrained_model",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "cwd": "${FMHB_ROOT}/lerobot",
+      "env": {
+        "PYTHONPATH": "${FMHB_ROOT}/lerobot/src"
+      },
+      "available": false,
+      "qualification": "checkpoint_git_lfs_pointer_not_materialized",
+      "runtime_inference_this_inventory": false,
+      "rng_reset": "LeRobotServerState.reset(seed) seeds Python, NumPy, Torch and CUDA",
+      "evidence": [
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_twist2_visionnavi_0529/100000/pretrained_model/config.json",
+          "bytes": 3930,
+          "sha256": "488b9f6c4b483ea4f84dec46985671a344bf4a49fb50fd3591350282ef6a0aa3"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_twist2_visionnavi_0529/100000/pretrained_model/model.safetensors",
+          "bytes": 135,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "9c0245152c87c7c0d82328ffd6ecded80a3e0bc2add79270e87af259385ce36a"
+        },
+        {
+          "path": "${FMHB_ROOT}/lerobot/scripts/serve_lerobot_vla_http.py",
+          "bytes": 38703,
+          "sha256": "47080582e3ac3d10723d55b89df464d6bbe28d05dd9fde77b0e884e0832fed84"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_twist2_visionnavi_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "091fbe714a63885c1d7eb53f868d59aee7f1dc1c2026eac2b429a967f58c2e6d"
+        },
+        {
+          "path": "${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_twist2_visionnavi_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+          "bytes": 130,
+          "git_lfs_pointer": true,
+          "materialized": false,
+          "sha256": "091fbe714a63885c1d7eb53f868d59aee7f1dc1c2026eac2b429a967f58c2e6d"
+        }
+      ],
+      "materialized_weights_verified": false,
+      "blocked_reason": "Git LFS pointer files are present instead of materialized model artifacts: ${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_twist2_visionnavi_0529/100000/pretrained_model/model.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_twist2_visionnavi_0529/100000/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors, ${FMHB_MODEL_ROOT}/pi/HSI_vision_navi/pi05_twist2_visionnavi_0529/100000/pretrained_model/policy_preprocessor_step_2_normalizer_processor.safetensors",
+      "request_fields": {
+        "return_chunk": true
+      }
+    },
+    "dit4dit_open_door": {
+      "kind": "http",
+      "family": "dit4dit",
+      "brain_class": "wam",
+      "task": "open_door",
+      "tasks": [
+        "open_door"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": null,
+      "checkpoint": null,
+      "server_command": [],
+      "cwd": "/home/d024/DiT4DiT",
+      "env": {},
+      "available": false,
+      "qualification": "bridge_present_ha_checkpoint_not_found",
+      "blocked_reason": "No saved HA state64/action40/horizon30 task checkpoint found in inspected local roots; unrelated embodiment checkpoints are not substituted.",
+      "launch_template": [
+        "/home/d024/miniconda3/envs/dit4dit/bin/python",
+        "/home/d024/DiT4DiT/examples/HumanoidArena/serve_humanoidarena.py",
+        "--policy-path",
+        "{checkpoint}",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "evidence": [
+        {
+          "path": "/home/d024/DiT4DiT/examples/HumanoidArena/serve_humanoidarena.py",
+          "bytes": 4782,
+          "sha256": "adc3d357d4f6f8e7e54c34df0a7707cb62590099dcb6c2107f925591846ebc37"
+        },
+        {
+          "path": "/home/d024/DiT4DiT/examples/HumanoidArena/humanoidarena_protocol.py",
+          "bytes": 3353,
+          "sha256": "9eda471183269e25eb1d0ad26de5de7de8fd5b27022574a76ea467e8f75c96cd"
+        },
+        {
+          "path": "/home/d024/DiT4DiT/examples/HumanoidArena/README.md",
+          "bytes": 5242,
+          "sha256": "6459d6dac1d7e6e7ecf27950cdd328a0d608b039a5e653fe2799117de8147a1e"
+        },
+        {
+          "path": "${FMHB_ROOT}/README.md",
+          "bytes": 8620,
+          "sha256": "1509b8868e9e20b8f5f72281a92be8b640a5964a2a4d725b40d572946e5261ba",
+          "note": "Canonical benchmark documentation records the adapter as available and the compatible task checkpoint as blocked."
+        }
+      ],
+      "runtime_inference_this_inventory": false
+    },
+    "vla_jepa_open_door": {
+      "kind": "http",
+      "family": "vla_jepa",
+      "brain_class": "vla",
+      "task": "open_door",
+      "tasks": [
+        "open_door"
+      ],
+      "horizon": 30,
+      "state_dim": 64,
+      "action_dim": 40,
+      "action_schema": "unitree_g1_gmt_refpose_v3_1",
+      "action_kind": "semantic_v3",
+      "control_dt": 0.02,
+      "training_body": "sonic",
+      "model_path": null,
+      "checkpoint": null,
+      "server_command": [],
+      "cwd": "/home/d024/VLA-JEPA-DEV",
+      "env": {},
+      "available": false,
+      "qualification": "bridge_present_ha_checkpoint_not_found",
+      "blocked_reason": "No saved HA state64/action40/horizon30 task checkpoint found in inspected local roots; unrelated embodiment checkpoints are not substituted.",
+      "launch_template": [
+        "/home/d024/miniconda3/envs/VLA_JEPA/bin/python",
+        "/home/d024/VLA-JEPA-DEV/examples/HumanoidArena/serve_humanoidarena.py",
+        "--policy-path",
+        "{checkpoint}",
+        "--port",
+        "{port}",
+        "--device",
+        "{device}"
+      ],
+      "evidence": [
+        {
+          "path": "/home/d024/VLA-JEPA-DEV/examples/HumanoidArena/serve_humanoidarena.py",
+          "bytes": 4441,
+          "sha256": "e52822339d98ee8b880bed8fa3c3537e0728237198bd096cfe44dde38b84fafa"
+        },
+        {
+          "path": "/home/d024/VLA-JEPA-DEV/examples/HumanoidArena/humanoidarena_protocol.py",
+          "bytes": 3130,
+          "sha256": "c322b71d5f20ec2b55d20953a19b0cd1b51a883d90150c49b36315156551ee00"
+        },
+        {
+          "path": "/home/d024/VLA-JEPA-DEV/examples/HumanoidArena/README.md",
+          "bytes": 2729,
+          "sha256": "9ed65d8bba2c9a27a0946c460c263eda8fd9e5af71d23722c95f1ab88d21b80b"
+        },
+        {
+          "path": "${FMHB_ROOT}/README.md",
+          "bytes": 8620,
+          "sha256": "1509b8868e9e20b8f5f72281a92be8b640a5964a2a4d725b40d572946e5261ba",
+          "note": "Canonical benchmark documentation records the adapter as available and the compatible task checkpoint as blocked."
+        }
+      ],
+      "runtime_inference_this_inventory": false
+    },
+    "gpt6_agent": {
+      "kind": "file",
+      "family": "gpt6",
+      "brain_class": "agent",
+      "tasks": [
+        "open_door",
+        "sit_sofa",
+        "boxing",
+        "football",
+        "pp_box",
+        "doubledesk",
+        "vision_navi"
+      ],
+      "horizon": 30,
+      "available": true,
+      "qualification": "autonomous_codex_command_worker_registered",
+      "checkpoint": null,
+      "model_path": null,
+      "agent_command": [
+        "/home/d024/miniconda3/envs/env_isaaclab/bin/python",
+        "${FMHB_ROOT}/fm_humanoid_bench/workers/codex_agent.py"
+      ],
+      "worker_required": false,
+      "worker_model": "gpt-6-astra"
+    }
+  },
+  "other_artifacts": {
+    "dit4dit_robocasa_gr1": {
+      "checkpoint": "/home/d024/DiT4DiT/models/dit4dit-model/dit4dit_robocasa_gr1/final_model/pytorch_model.pt",
+      "config": "/home/d024/DiT4DiT/models/dit4dit-model/dit4dit_robocasa_gr1/config.yaml",
+      "state_dim": 64,
+      "action_dim": 32,
+      "horizon": 16,
+      "ha_compatible": false
+    },
+    "dit4dit_ha_smoke": {
+      "directory": "/home/d024/DiT4DiT/playground/humanoidarena_smoke",
+      "qualification": "existing_documented_inference_and_backward_smoke; only normalization stats remain",
+      "saved_ha_weights_found": false
+    },
+    "vla_jepa_g1_smokes": {
+      "directory": "/home/d024/VLA-JEPA-DEV/checkpoints",
+      "state_dim": 32,
+      "action_dim": 36,
+      "horizon": 30,
+      "ha_compatible": false
+    }
+  },
+  "searched_checkpoint_roots": [
+    "/home/d024/DiT4DiT",
+    "/home/d024/VLA-JEPA-DEV",
+    "/home/d024/VLA-JEPA-ONE-STAGE-DELTA",
+    "${FMHB_MODEL_ROOT}",
+    "/home/d024/models",
+    "/home/d024/.cache/huggingface/hub"
+  ]
+}

@@ -1,24 +1,25 @@
-/isaaclab_twist2_g1/assets/
-/isaaclab_twist2_g1/recording_data/
-/isaaclab_twist2_g1/replay_debug_logs/
-/isaaclab_twist2_g1/recording_debug_logs/
-/isaaclab_twist2_g1/img/
-/TWIST2/assets/
+/simulator/assets/
+/simulator/recording_data/
+/simulator/replay_debug_logs/
+/simulator/recording_debug_logs/
+/simulator/img/
 /GR00T-WholeBodyControl/
 /lerobot/outputs
-/isaaclab_twist2_g1/script/eval_scripts/twist2/eval_results
-/isaaclab_twist2_g1/script/eval_scripts/sonic/eval_results
-/isaaclab_twist2_g1/script/eval_scripts/sonic_pi05/eval_results
-/isaaclab_twist2_g1/script/eval_scripts/twist2_pi05/eval_results
-/isaaclab_twist2_g1/outputs
-/isaaclab_twist2_g1/smpl
-/isaaclab_twist2_g1/smpl/SMPL_NEUTRAL.pkl
-/isaaclab_twist2_g1/recording4pic
+/simulator/script/eval_scripts/twist2/eval_results
+/simulator/script/eval_scripts/sonic/eval_results
+/simulator/script/eval_scripts/sonic_pi05/eval_results
+/simulator/script/eval_scripts/twist2_pi05/eval_results
+/simulator/outputs
+/simulator/smpl
+/simulator/smpl/SMPL_NEUTRAL.pkl
+/simulator/recording4pic
 /lerobot/results
-/isaaclab_twist2_g1/script/eval_scripts/sonic/eval_results
-/isaaclab_twist2_g1/script/eval_scripts/twist2/eval_results
+/simulator/script/eval_scripts/sonic/eval_results
+/simulator/script/eval_scripts/twist2/eval_results
 /dataset_v2
-/external/
+/external/*
+!/external/TWIST2/
+/humanoidarena_sim_assets.zip
 GMR
 .omx/
 
@@ -54,9 +55,9 @@ replay_debug_logs/
 *.range_ports.bak
 *.port_scan.bak
 asset_migration_backups/
-isaaclab_twist2_g1/tools/apply_task_asset_migration.py
-isaaclab_twist2_g1/tools/fix_task_asset_migration_residuals.py
-isaaclab_twist2_g1/tools/scan_task_asset_dependencies.py
+simulator/tools/apply_task_asset_migration.py
+simulator/tools/fix_task_asset_migration_residuals.py
+simulator/tools/scan_task_asset_dependencies.py
 lerobot/scripts/open_aoe_training/
 
 # Local agent/session guidance

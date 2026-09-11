@@ -5,18 +5,24 @@ from __future__ import annotations
 import argparse
 import logging
 import shutil
+import sys
 from pathlib import Path
 
 import numpy as np
 
+_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
+
+from action_provider.vision_video import read_rgb_video_mp4
 from lerobot.datasets.lerobot_dataset import LeRobotDataset
 
 
 DEFAULT_INPUT_ROOT = Path(
-    "/home/dreams/Users/taowen/HumanoidArena/simulator/recording_data/0401"
+    "/home/dreams/Users/taowen/HumanoidArena/simulator/recording_data/HOI_football_v2/twist2"
 )
-DEFAULT_OUTPUT_ROOT = Path("outputs/datasets/twist2_0401_vla")
-DEFAULT_REPO_ID = "local/twist2-0401-vla"
+DEFAULT_OUTPUT_ROOT = Path("outputs/datasets/twist2_0407_vla")
+DEFAULT_REPO_ID = "local/twist2-0407-vla"
 
 OBS_PROPRIO_START = 35
 OBS_PROPRIO_END = 127
@@ -174,13 +180,28 @@ def infer_fps(npz_paths: list[Path], fps_override: int | None) -> int:
 def inspect_image_shape(npz_paths: list[Path]) -> tuple[int, int, int]:
     for path in npz_paths:
         with np.load(path, allow_pickle=True) as data:
-            vision_rgb = np.asarray(data["vision_rgb"])
+            vision_rgb, _ = load_vision_rgb_and_indices(data, path)
             if vision_rgb.ndim != 4:
                 raise ValueError(f"{path} has unexpected vision_rgb shape: {vision_rgb.shape}")
             if vision_rgb.shape[0] == 0:
                 continue
             return tuple(int(v) for v in vision_rgb.shape[1:])
     raise ValueError("No RGB frames found in the input dataset.")
+
+
+def load_vision_rgb_and_indices(data: np.lib.npyio.NpzFile, npz_path: Path) -> tuple[np.ndarray, np.ndarray]:
+    if "vision_rgb" in data:
+        vision_rgb = np.asarray(data["vision_rgb"], dtype=np.uint8)
+    elif "vision_rgb_video_path" in data:
+        video_rel = decode_scalar(data["vision_rgb_video_path"])
+        vision_rgb = read_rgb_video_mp4(npz_path.parent / video_rel)
+    else:
+        raise KeyError(f"{npz_path} missing vision data")
+    if "vision_frame_indices" in data:
+        indices = np.asarray(data["vision_frame_indices"], dtype=np.int64)
+    else:
+        indices = np.arange(vision_rgb.shape[0], dtype=np.int64)
+    return vision_rgb, indices
 
 
 def build_features(image_shape: tuple[int, int, int], use_videos: bool) -> dict[str, dict]:
@@ -282,8 +303,7 @@ def main() -> None:
             frames_in_episode = 0
             with np.load(npz_path, allow_pickle=True) as data:
                 obs_buf = np.asarray(data["robot_obs_buf"], dtype=np.float32)
-                vision_rgb = np.asarray(data["vision_rgb"], dtype=np.uint8)
-                vision_frame_indices = np.asarray(data["vision_frame_indices"], dtype=np.int64)
+                vision_rgb, vision_frame_indices = load_vision_rgb_and_indices(data, npz_path)
                 left_grip_binary, right_grip_binary = get_grip_binary_arrays(data, obs_buf.shape[0])
 
                 if obs_buf.ndim != 2 or obs_buf.shape[1] < FUTURE_OBS_END:

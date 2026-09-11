@@ -1,0 +1,45 @@
+{
+  "schema": "arena_benchmark_suite_v1",
+  "name": "agent_open_door_references",
+  "models": [
+    "gpt6_agent"
+  ],
+  "bodies": [
+    "sonic",
+    "twist2",
+    "scale",
+    "holo",
+    "zero"
+  ],
+  "tasks": [
+    "open_door"
+  ],
+  "modes": [
+    "Base",
+    "Visual",
+    "Semantic",
+    "Execution"
+  ],
+  "tracks": [
+    "reference"
+  ],
+  "conditions": [
+    "none",
+    "state_action",
+    "images"
+  ],
+  "group_seeds": [
+    0,
+    1,
+    2
+  ],
+  "repeats": 20,
+  "execute_frames": 20,
+  "environment_backend": "twist2",
+  "notes": "Full planned experiment; planning does not launch jobs. GPT-6 uses the registered autonomous Codex command worker. Original HA seed formula and task budgets.",
+  "reference_catalog": "fm_humanoid_bench/references/catalog.json",
+  "reference_selection": "config",
+  "reference_ids": {
+    "open_door": "open_door_ep000000_31ee6e409a48"
+  }
+}

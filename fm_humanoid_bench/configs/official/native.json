@@ -1,0 +1,44 @@
+{
+  "schema": "arena_benchmark_suite_v1",
+  "name": "foundation_native",
+  "models": [
+    "gpt6_agent"
+  ],
+  "bodies": [
+    "sonic",
+    "twist2",
+    "scale",
+    "holo",
+    "zero"
+  ],
+  "tasks": [
+    "open_door",
+    "sit_sofa",
+    "boxing",
+    "football",
+    "pp_box",
+    "doubledesk",
+    "vision_navi"
+  ],
+  "modes": [
+    "Base",
+    "Visual",
+    "Semantic",
+    "Execution"
+  ],
+  "tracks": [
+    "native"
+  ],
+  "conditions": [
+    "none"
+  ],
+  "group_seeds": [
+    0,
+    1,
+    2
+  ],
+  "repeats": 20,
+  "execute_frames": 20,
+  "environment_backend": "twist2",
+  "notes": "Native-Body Agent experiment. GPT-6 uses the registered autonomous Codex command worker; original HA seed formula and task budgets remain fixed."
+}

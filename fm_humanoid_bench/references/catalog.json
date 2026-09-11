@@ -1,0 +1,25 @@
+{
+  "schema": "arena_reference_catalog_v1",
+  "entries": [
+    {
+      "id": "open_door_ep000000_31ee6e409a48",
+      "task_id": "open_door",
+      "bundle_path": "open_door_episode000000/reference.json",
+      "sha256": "31ee6e409a483276d47599e29e2dc8d42fed1cd7657a065bf3d4b098de07b978",
+      "asset_sha256": {
+        "ego_000000.png": "0cd37040b4619eeae05f407a8d731c9d7f0202e320b295abc10faa1c47e5da3b",
+        "ego_000200.png": "637e40f1153149311ce6a5b8c02a9510c03fc97bca1a55704f2ff70228e48f86",
+        "ego_000400.png": "7b561c2bd890d3880ef18a121e95d74480ebe2a8d70548f045ce7b9bc77e8d2d",
+        "ego_000600.png": "9b780534baeb596fe7e33dbd6548aa946fcb513b13f8873b5ef43d9ee4a49436",
+        "ego_000675.png": "606e7d5c63a9e3af908c72830eae744f987f7505a152599f3c03384cab3f8404",
+        "ego_000875.png": "df8dfb65db2386b23b284b6143237d96b17d8e58f429599274e58f6b1e919224",
+        "ego_001575.png": "f9780926247118b7966f43d3a9519dbdfde3ddb17e0b21c8da86f0b03841e1d8",
+        "ego_001759.png": "3c19a831f02a5228042d85b2a96cfa6d4d28840171d6cb8b013f17cef219a795"
+      },
+      "modalities": [
+        "state_action",
+        "images"
+      ]
+    }
+  ]
+}

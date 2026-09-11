@@ -1,0 +1,69 @@
+{
+  "schema": "arena_benchmark_suite_v1",
+  "name": "foundation_reference",
+  "models": [
+    "psi0_boxing",
+    "psi0_double_desk",
+    "psi0_football",
+    "psi0_open_door",
+    "psi0_pp_box",
+    "psi0_sit_sofa",
+    "psi0_vision_navi",
+    "groot_open_door",
+    "groot_double_desk",
+    "pi05_sonic_double_desk",
+    "pi05_twist2_double_desk",
+    "pi05_sonic_football",
+    "pi05_twist2_football",
+    "pi05_sonic_pp_box",
+    "pi05_twist2_pp_box",
+    "pi05_sonic_boxing",
+    "pi05_twist2_boxing",
+    "pi05_sonic_open_door",
+    "pi05_twist2_open_door",
+    "pi05_sonic_sit_sofa",
+    "pi05_twist2_sit_sofa",
+    "pi05_sonic_vision_navi",
+    "pi05_twist2_vision_navi",
+    "dit4dit_open_door",
+    "vla_jepa_open_door",
+    "gpt6_agent"
+  ],
+  "bodies": [
+    "sonic",
+    "twist2",
+    "scale",
+    "holo",
+    "zero"
+  ],
+  "tasks": [
+    "open_door",
+    "sit_sofa",
+    "boxing",
+    "football",
+    "pp_box",
+    "doubledesk",
+    "vision_navi"
+  ],
+  "modes": [
+    "Base",
+    "Visual",
+    "Semantic",
+    "Execution"
+  ],
+  "tracks": [
+    "reference"
+  ],
+  "conditions": [
+    "none"
+  ],
+  "group_seeds": [
+    0,
+    1,
+    2
+  ],
+  "repeats": 20,
+  "execute_frames": 20,
+  "environment_backend": "twist2",
+  "notes": "Expanded cross-Body inventory sweep, not the frozen SONIC40 reproduction population. Each task-compatible checkpoint is evaluated on five Bodies; training_body remains checkpoint provenance. GPT-6 uses the registered autonomous Codex command worker and unavailable WAM checkpoints remain blocked."
+}

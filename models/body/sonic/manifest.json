@@ -1,0 +1,41 @@
+{
+  "schema": "arena_body_artifact_v1",
+  "body": "SONIC",
+  "source_repository": "https://github.com/BlackOtters/SonicStar",
+  "weight_repository": "nvidia/GEAR-SONIC",
+  "runtime_default": "onnxruntime_cuda",
+  "control_dt": 0.02,
+  "files": {
+    "encoder_onnx": {
+      "path": "model_encoder.onnx",
+      "bytes": 50100513,
+      "sha256": "013ab0287236aa2721e13f1e936d699db982302d0de0bfcdae76d5c3245362d3",
+      "required": true
+    },
+    "decoder_onnx": {
+      "path": "model_decoder.onnx",
+      "bytes": 40900688,
+      "sha256": "c7241a123eaa36b5d64bad19540efde93cac1ad443bd4572fd12ca99898118ed",
+      "required": true
+    },
+    "observation_config": {
+      "path": "observation_config.yaml",
+      "bytes": 2336,
+      "sha256": "466d05947c78af6c76388adfb86e3a2a77b2a1d921a64883ed3d085ebf58de1b",
+      "required": true
+    },
+    "encoder_tensorrt": {
+      "path": "encoder_model_encoder.trt",
+      "bytes": 49774412,
+      "sha256": "e6515467151c7586844b2635e3a552c1b89c92d675c411d03c2f86388b039cb8",
+      "required": false
+    },
+    "decoder_tensorrt": {
+      "path": "policy_model_decoder.trt",
+      "bytes": 41017732,
+      "sha256": "061b0a30b35657ee57e27b72439d7ec410b4443100c36bde62228c336e2cab53",
+      "required": false
+    }
+  },
+  "notes": "The benchmark reference/native adapters load both ONNX files. TensorRT engines are retained as optional deployment artifacts and are not silently substituted."
+}
